@@ -15,30 +15,25 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.chatapp.onboarding.LinearGradient
+import com.example.chatapp.login.LoginPage
 import com.example.chatapp.onboarding.OnBoarding
+import com.example.chatapp.ui.theme.Black
 import com.example.chatapp.ui.theme.ChatAppTheme
+import com.example.chatapp.ui.theme.Purple80
+import com.example.chatapp.ui.theme.Sky
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ChatAppTheme {
-                // A surface container using the 'background' color from the theme
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    MaterialTheme.colorScheme.secondary,
-                                ),
-                            ),
-                        )
+                        .background(color = Black)
                 ) {
-                    // Your Composable content goes here
-                    OnBoarding()
+//                    OnBoarding()
+                    LoginPage()
                 }
             }
         }
