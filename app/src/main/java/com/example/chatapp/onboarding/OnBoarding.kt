@@ -77,32 +77,6 @@ fun OnBoarding() {
         )
         Box(modifier = Modifier.size(30.dp))
         SocialMedia()
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .background(Color.Black)
-                    .height(1.dp)
-            )
-            Text(
-                text = "OR",
-                modifier = Modifier
-                    .padding(10.dp),
-                color = Color.White
-            )
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .background(Color.Black)
-                    .height(1.dp)
-            )
-        }
         Button(
             onClick = {
                 // Handle button click
@@ -136,15 +110,4 @@ fun OnBoarding() {
             style = LocalTextStyle.current.copy(color = Color.White)
         )
     }
-}
-
-@Composable
-fun LinearGradient() {
-    val gradient = Brush.linearGradient(
-        0.0f to Color.Magenta,
-        500.0f to Color.Cyan,
-        start = Offset.Zero,
-        end = Offset.Infinite
-    )
-    Box(modifier = Modifier.background(gradient))
 }
