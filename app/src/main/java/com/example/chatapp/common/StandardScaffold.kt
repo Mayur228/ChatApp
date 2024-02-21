@@ -2,7 +2,11 @@ package com.example.chatapp.common
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -13,9 +17,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.chatapp.common.model.BottomNavItem
+import com.example.chatapp.ui.theme.bottomBg
 import com.example.chatapp.ui.theme.primaryDark
-import com.example.chatapp.ui.theme.primaryGray
-import com.example.chatapp.ui.theme.primaryPink
+import com.example.chatapp.ui.theme.primaryPurple
+import com.example.chatapp.ui.theme.secondaryDark
 
 
 @Composable
@@ -34,7 +39,7 @@ fun StandardScaffold(
         bottomBar = {
             if (showBottomBar) {
                 BottomNavigation(
-                    backgroundColor = primaryDark,
+                    backgroundColor = secondaryDark,
                     contentColor = Color.White,
                     elevation = 5.dp
                 ) {
@@ -56,8 +61,8 @@ fun StandardScaffold(
                                     fontSize = 9.sp
                                 )
                             },
-                            selectedContentColor = primaryPink,
-                            unselectedContentColor = primaryGray,
+                            selectedContentColor = primaryDark,
+                            unselectedContentColor = primaryPurple,
                             alwaysShowLabel = true,
                             selected = currentDestination?.route?.contains(item.destination) == true,
                             onClick = {

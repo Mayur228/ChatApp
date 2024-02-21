@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navController = rememberNavController()
-//                    val navHostEngine = rememberNavHostEngine()
 
                     val newBackStackEntry by navController.currentBackStackEntryAsState()
                     val route = newBackStackEntry?.destination?.route
@@ -39,13 +38,6 @@ class MainActivity : ComponentActivity() {
                             BottomNavItem.Settings.destination
                         )
                     ) { innerPadding ->
-                        /*Box(modifier = Modifier.padding(innerPadding)) {
-                            DestinationsNavHost(
-                                navGraph = NavGraphs.root,
-                                navController = navController,
-                                engine = navHostEngine
-                            )
-                        }*/
                         BottomNavGraph(
                             navController = navController
                         )
