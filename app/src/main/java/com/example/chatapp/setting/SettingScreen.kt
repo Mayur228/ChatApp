@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
 import com.example.chatapp.common.StandardToolbar
+import com.example.chatapp.setting.component.SettingItem
 import com.example.chatapp.ui.theme.quicksand
 import kotlinx.coroutines.delay
 
@@ -90,7 +91,7 @@ fun Setting() {
                     }
 
                 },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier.fillMaxWidth(),
                 showBackArrow = false,
                 navActions = {
                     IconButton(onClick = {
@@ -112,71 +113,26 @@ fun Setting() {
         ) {
 
             item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = "Account",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                )
+                SettingItem("Account", R.drawable.ic_placeholder)
                 Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = "Lets CatchUp",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                )
+                SettingItem("Lets CatchUp", R.drawable.ic_placeholder)
                 Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
             item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = "Notifications",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                )
+                SettingItem("Notifications", R.drawable.ic_placeholder)
                 Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = "Share",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                )
+                SettingItem("Share", R.drawable.ic_placeholder)
                 Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = "About",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp
-                )
+                SettingItem("About", R.drawable.ic_placeholder)
                 Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
         }

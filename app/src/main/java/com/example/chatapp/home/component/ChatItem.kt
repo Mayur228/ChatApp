@@ -1,7 +1,9 @@
-package com.example.chatapp.contact.component
+package com.example.chatapp.home.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -33,7 +39,7 @@ import com.example.chatapp.R
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun ContactItem() {
+fun ChatItem() {
     Card(
         modifier = Modifier.padding(vertical = 1.dp, horizontal = 5.dp),
         backgroundColor = secondaryDark,
@@ -42,7 +48,7 @@ fun ContactItem() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(horizontal = 8.dp,vertical = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -60,7 +66,7 @@ fun ContactItem() {
                     contentDescription = "Person",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(60.dp)
+                        .size(55.dp)
                         .clip(CircleShape)
                 )
 
@@ -73,29 +79,52 @@ fun ContactItem() {
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
+                    Row(
+                        verticalAlignment =  Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Hello",
+                            color = Color.Gray,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 17.sp
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Image(
+                            modifier = Modifier.size(17.dp),
+                            painter = painterResource(id = R.drawable.ic_readed),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(Color.Gray)
+
+                        )
+                    }
                     Text(
-                        text = "+91 9457308465",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 16.sp
+                        text = "2 min ago",
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp
                     )
                 }
             }
 
-            // Right side: IconButton
-            IconButton(
-                onClick = {
-                    // Handle icon button click
-                },
+            Box(
                 modifier = Modifier
-                    .size(25.dp)
+                    .size(30.dp)
+                    .background(Color.Red, shape = RoundedCornerShape(50.dp)),
+                contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_message),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Color.Black)
+                Text(
+                    text = "10",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
                 )
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun preview()
+{
+ ChatItem()
 }

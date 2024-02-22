@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -112,27 +113,22 @@ fun Call() {
 
                 item {
                     CallItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
                 }
 
                 item {
                     CallItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
                 }
 
                 item {
                     CallItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
                 }
 
                 item {
                     CallItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
                 }
 
                 item {
                     CallItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
                 }
 
             }

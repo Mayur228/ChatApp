@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.chatapp.chat.ChatScreen
 import com.example.chatapp.common.BottomNavGraph
 import com.example.chatapp.common.StandardScaffold
 import com.example.chatapp.common.model.BottomNavItem
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val navController = rememberNavController()
+                   /* val navController = rememberNavController()
 
                     val newBackStackEntry by navController.currentBackStackEntryAsState()
                     val route = newBackStackEntry?.destination?.route
@@ -41,7 +42,10 @@ class MainActivity : ComponentActivity() {
                         BottomNavGraph(
                             navController = navController
                         )
-                    }
+                    }*/
+
+                    ChatScreen()
+
                 }
                 /*Box(
                     modifier = Modifier
@@ -52,6 +56,7 @@ class MainActivity : ComponentActivity() {
 //                    LoginPage()
                     HomeScreen()
                 }*/
+
             }
         }
     }

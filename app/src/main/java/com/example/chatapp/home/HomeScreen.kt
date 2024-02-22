@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -28,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
 import com.example.chatapp.common.StandardToolbar
+import com.example.chatapp.contact.component.ContactItem
+import com.example.chatapp.home.component.ChatItem
 import com.example.chatapp.ui.theme.quicksand
 import kotlinx.coroutines.delay
 
@@ -104,12 +107,32 @@ fun Home() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Text(
-                text = "Chat",
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(innerPadding),
-            )
+            ) {
+
+                item {
+                    ChatItem()
+                }
+
+                item {
+                    ChatItem()
+                }
+
+                item {
+                    ChatItem()
+                }
+
+                item {
+                    ChatItem()
+                }
+
+                item {
+                    ChatItem()
+                }
+
+            }
         }
     }
 }

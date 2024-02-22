@@ -111,27 +111,22 @@ fun Contact() {
 
             item {
                 ContactItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
                 ContactItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
                 ContactItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
                 ContactItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
             item {
                 ContactItem()
-//                Divider(color = Color.White,modifier = Modifier.padding(start= 15.dp,end = 15.dp))
             }
 
         }

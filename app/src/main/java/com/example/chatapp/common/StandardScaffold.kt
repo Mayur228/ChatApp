@@ -21,7 +21,8 @@ import com.example.chatapp.ui.theme.bottomBg
 import com.example.chatapp.ui.theme.primaryDark
 import com.example.chatapp.ui.theme.primaryPurple
 import com.example.chatapp.ui.theme.secondaryDark
-
+import com.example.chatapp.ui.theme.selected
+import com.example.chatapp.ui.theme.unSelected
 
 @Composable
 fun StandardScaffold(
@@ -39,9 +40,9 @@ fun StandardScaffold(
         bottomBar = {
             if (showBottomBar) {
                 BottomNavigation(
-                    backgroundColor = secondaryDark,
+                    backgroundColor = Color.White,
                     contentColor = Color.White,
-                    elevation = 5.dp
+                    elevation = 12.dp
                 ) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
@@ -61,8 +62,8 @@ fun StandardScaffold(
                                     fontSize = 9.sp
                                 )
                             },
-                            selectedContentColor = primaryDark,
-                            unselectedContentColor = primaryPurple,
+                            selectedContentColor = selected,
+                            unselectedContentColor = unSelected,
                             alwaysShowLabel = true,
                             selected = currentDestination?.route?.contains(item.destination) == true,
                             onClick = {

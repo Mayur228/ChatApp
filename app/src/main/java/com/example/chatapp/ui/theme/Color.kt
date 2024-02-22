@@ -14,6 +14,8 @@ val primaryDark = Color(0xFF9395D3)
 val primaryPurple = Color(0xFF535C91)
 val secondaryDark = Color(0xFFB3B7EE)
 val bottomBg = Color(0xFFFFD0EC)
+val unSelected = Color(0xFFC0C0C0)
+val selected = Color(0xFF1652F4)
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
