@@ -25,6 +25,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.chatapp.common.SocialMedia
@@ -47,8 +48,8 @@ fun OnBoarding() {
                         fontSize = 68.sp,
                     ),
                 ) {
-                    append("Connect\n\n\n")
-                    append("friends\n\n\n")
+                    append("Connect\n")
+                    append("friends\n")
 
                 }
                 withStyle(
@@ -58,7 +59,7 @@ fun OnBoarding() {
                         fontSize = 68.sp,
                     ),
                 ) {
-                    append("easily &\n\n\n")
+                    append("easily &\n")
                     append("quickly")
 
                 }
@@ -69,13 +70,17 @@ fun OnBoarding() {
         Box(modifier = Modifier.size(10.dp))
         Text(
             text = "Our chat app is the perfect way to stay connected with friends and family.",
-            color = Color.White
+            color = Color.White,
+            fontWeight = FontWeight.Normal,
+            fontSize = 18.sp
         )
-        Box(modifier = Modifier.size(30.dp))
-        SocialMedia()
-        Button(
+
+        Box(modifier = Modifier.size(15.dp))
+
+      /*  Button(
             onClick = {
                 // Handle button click
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,6 +93,9 @@ fun OnBoarding() {
         ) {
             Text("Sign up with mail")
         }
+
+        Box(modifier = Modifier.size(8.dp))
+        SocialMedia()
 
         Box(modifier = Modifier.size(10.dp))
 
@@ -104,6 +112,13 @@ fun OnBoarding() {
                 }
             },
             style = LocalTextStyle.current.copy(color = Color.White)
-        )
+        )*/
     }
+}
+
+@Preview
+@Composable
+fun OnBoardingPreview()
+{
+    OnBoarding()
 }

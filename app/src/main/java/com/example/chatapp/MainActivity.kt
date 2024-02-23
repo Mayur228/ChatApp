@@ -6,15 +6,21 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.chatapp.chat.ChatScreen
 import com.example.chatapp.common.BottomNavGraph
 import com.example.chatapp.common.StandardScaffold
 import com.example.chatapp.common.model.BottomNavItem
+import com.example.chatapp.login.LoginPage
+import com.example.chatapp.onboarding.OnBoarding
+import com.example.chatapp.registration.RegistrationScreen
 import com.example.chatapp.ui.theme.ChatAppTheme
+import com.example.chatapp.ui.theme.primaryDark
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +29,7 @@ class MainActivity : ComponentActivity() {
             ChatAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = primaryDark
                 ) {
                    /* val navController = rememberNavController()
 
@@ -44,20 +50,20 @@ class MainActivity : ComponentActivity() {
                         )
                     }*/
 
-                    ChatScreen()
-
-                }
-                /*Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Black)
-                ) {
+//                    ChatScreen()
 //                    OnBoarding()
+                    RegistrationScreen()
 //                    LoginPage()
-                    HomeScreen()
-                }*/
-
+                }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun HomePreview() {
+    ChatAppTheme(darkTheme = true, dynamicColor = false) {
+        ChatScreen()
     }
 }

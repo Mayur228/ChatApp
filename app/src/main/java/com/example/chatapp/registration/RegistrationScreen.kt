@@ -1,15 +1,17 @@
-package com.example.chatapp.login
+package com.example.chatapp.registration
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -18,8 +20,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,67 +45,75 @@ import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun LoginPage() {
-
+fun RegistrationScreen() {
     Column(
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
-        AnimatedPreloader(modifier = Modifier.size(250.dp), animation = R.raw.login_anim)
-
+        AnimatedPreloader(modifier = Modifier.size(325.dp), animation = R.raw.signup_anim)
         Text(
-            text = "Welcome back! Sign in using your social account or email to continue us",
+            text = "Welcome to our Chat App! Let's get started by creating an account.",
             color = Color.White,
             textAlign = TextAlign.Center,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
         )
-        EmailAndPasswordForm()
-        SocialMedia()
+        Form()
         Spacer(modifier = Modifier.size(15.dp))
-        ClickableText(
-            text = AnnotatedString("Not registered yet? SignUp"),
-            modifier = Modifier.clickable {
-                    // Handle click action, e.g., navigate to login screen
-                },
-            onClick = { offset ->
-                // Handle specific click actions if needed
-                if (offset in 20..26) {
-                    // "Login" clicked
-                }
-            },
-            style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
-        )
-
     }
 }
 
+
 @Composable
-fun EmailAndPasswordForm() {
+fun Form() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp)
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
+            .padding(15.dp),
+        horizontalAlignment =  Alignment.CenterHorizontally,
     ) {
         // Email TextField
         TextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Username",color = Color.White) },
+            label = { Text("Email", color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
-                Icon(Icons.Default.Person, contentDescription = null,tint = Color.White)
+                Icon(Icons.Default.Email, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Email
             ),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor =  secondaryDark.copy(alpha = 0.8f),
+                backgroundColor = secondaryDark.copy(alpha = 0.8f),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color.White,
+                textColor = Color.White
+            )
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+
+        TextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Phone", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = {
+                Icon(Icons.Default.Phone, contentDescription = null, tint = Color.White)
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Email
+            ),
+            shape = RoundedCornerShape(percent = 12),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = secondaryDark.copy(alpha = 0.8f),
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 cursorColor = Color.White,
@@ -114,10 +125,10 @@ fun EmailAndPasswordForm() {
         TextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password",color = Color.White) },
+            label = { Text("Password", color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
-                Icon(Icons.Default.Lock, contentDescription = null,tint = Color.White)
+                Icon(Icons.Default.Lock, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password
@@ -125,7 +136,7 @@ fun EmailAndPasswordForm() {
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor =  secondaryDark.copy(alpha = 0.8f),
+                backgroundColor = secondaryDark.copy(alpha = 0.8f),
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 cursorColor = Color.White,
@@ -133,20 +144,31 @@ fun EmailAndPasswordForm() {
             )
         )
 
-        Text(
-            text = AnnotatedString("forgot Password?"),
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .align(Alignment.End)
-                .clickable {
-                    // Handle click action, e.g., navigate to login screen
-                },
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
+        Spacer(modifier = Modifier.size(8.dp))
+        // Password TextField
+        TextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Confirm Password", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = {
+                Icon(Icons.Default.Lock, contentDescription = null, tint = Color.White)
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Password
+            ),
+            visualTransformation = PasswordVisualTransformation(),
+            shape = RoundedCornerShape(percent = 12),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = secondaryDark.copy(alpha = 0.8f),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color.White,
+                textColor = Color.White
+            )
         )
 
-        // Button to simulate login action
+        Spacer(modifier = Modifier.size(15.dp))
         Button(
             onClick = {
                 // Perform login action here
@@ -158,13 +180,29 @@ fun EmailAndPasswordForm() {
             shape = RoundedCornerShape(25.dp),
             colors = ButtonDefaults.buttonColors(Color.White)
         ) {
-            Text("Login", color = Color.Black, modifier = Modifier.padding(5.dp))
+            Text("Signup", color = Color.Black, modifier = Modifier.padding(5.dp))
         }
+        SocialMedia()
+        ClickableText(
+            text = AnnotatedString("Existing account? Login"),
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .clickable {
+                    // Handle click action, e.g., navigate to login screen
+                },
+            onClick = { offset ->
+                // Handle specific click actions if needed
+                if (offset in 20..26) {
+                    // "Login" clicked
+                }
+            },
+            style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
+        )
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true, backgroundColor = 1)
+@Preview
 @Composable
-fun LoginPagePreview() {
-    LoginPage()
+fun RegistrationPreview() {
+    RegistrationScreen()
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.chatapp.R
 
@@ -31,25 +32,15 @@ import com.example.chatapp.R
 fun SocialMedia() {
     Column {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            CircularImage(R.drawable.google_icon)
-            Box(modifier = Modifier.size(10.dp))
-            CircularImage(R.drawable.phone_icon)
-        }
-
-        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .background(Color.Gray)
+                    .background(Color.White)
                     .height(1.dp)
             )
             Text(
@@ -61,10 +52,35 @@ fun SocialMedia() {
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .background(Color.Gray)
+                    .background(Color.White)
                     .height(1.dp)
             )
         }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+//            CircularImage(R.drawable.ic_google)
+            Image(
+                painter = painterResource(R.drawable.ic_google),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .size(45.dp)
+            )
+            Box(modifier = Modifier.size(8.dp))
+//            CircularImage(R.drawable.ic_facebook)
+            Image(
+                painter = painterResource(R.drawable.ic_facebook),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .size(45.dp)
+            )
+        }
+
     }
 
 }
@@ -74,11 +90,9 @@ fun CircularImage(image: Int) {
     Card(
         modifier = Modifier
             .size(50.dp)
-            .border(2.dp, Color.Black, CircleShape)
-            .background(
-                color = Color.Black
-            ),
-        backgroundColor = Color.Black,
+            .border(1.dp, Color.Black, CircleShape)
+            ,
+        backgroundColor = Color.White,
         shape = CircleShape,
         elevation = 16.dp
     ) {
@@ -98,5 +112,10 @@ fun CircularImage(image: Int) {
 
     }
 
+}
 
+@Preview
+@Composable
+fun SocialLoginComponentPreview() {
+    SocialMedia()
 }
