@@ -32,12 +32,13 @@ class MainActivity : ComponentActivity() {
 
                     StandardScaffold(
                         navController = navController,
-                        showBottomBar = route in listOf(
+                        showBottomBar = false
+                        /*route in listOf(
                             BottomNavItem.Message.destination,
                             BottomNavItem.Calls.destination,
                             BottomNavItem.Contacts.destination,
                             BottomNavItem.Settings.destination
-                        )
+                        )*/
                     ) { innerPadding ->
                         NavGraph(navController = navController)
                     }

@@ -5,6 +5,7 @@ object Constant {
     const val LOGIN = "Login"
     const val SINGUP = "SingUp"
     const val CHAT = "chat"
+    const val FORGOT_PASSWORD = "forgot_password"
 }
 
 object SharedPreferenceKey {

@@ -77,20 +77,6 @@ fun ChatScreen() {
 
                 if (message.isSender) {
                     // Sender Message
-                    /* AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(message.profileImageResId)
-                                .crossfade(true)
-                                .build(),
-                            placeholder = painterResource(R.drawable.ic_placeholder),
-                            error = painterResource(id = R.drawable.ic_placeholder),
-                            contentDescription = "Person",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .clip(CircleShape)
-                        )*/
-
                     SenderMessage(message)
 
                 } else {
@@ -150,7 +136,6 @@ fun ChatScreen() {
         }
     }
 }
-
 
 data class Message(
     val senderName: String,

@@ -107,13 +107,16 @@ fun Home(navHostController: NavHostController) {
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize().padding(innerPadding),
         ) {
+          /*  AnimatedPreloader(modifier = Modifier
+                .size(300.dp),
+                animation = R.raw.empty_list)*/
+
             LazyColumn(
                 modifier = Modifier
                     .padding(innerPadding),
             ) {
-
                 item {
                     ChatItem(onItemClick = {
                         navHostController.navigate(CHAT)

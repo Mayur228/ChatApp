@@ -42,14 +42,13 @@ import com.example.chatapp.MainActivity
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
 import com.example.chatapp.common.Constant
-import com.example.chatapp.common.Constant.FORGOT_PASSWORD
 import com.example.chatapp.common.PreferencesManager
 import com.example.chatapp.common.SharedPreferenceKey
 import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun LoginPage(
+fun ForgotPasswordPage(
     navHostController: NavHostController
 ) {
 
@@ -58,38 +57,41 @@ fun LoginPage(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        AnimatedPreloader(modifier = Modifier.size(250.dp), animation = R.raw.login_anim)
+        Spacer(modifier = Modifier.size(50.dp))
 
         Text(
-            text = "Welcome back! Sign in using your social account or email to continue us",
+            text = "Forgot your password? No worries! Let's get you back on track.",
             color = Color.White,
             textAlign = TextAlign.Center,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
         )
-        EmailAndPasswordForm(navHostController)
-        SocialMedia()
-        Spacer(modifier = Modifier.size(15.dp))
-        ClickableText(
-            text = AnnotatedString("Not registered yet? SignUp"),
-            modifier = Modifier.clickable {
-                navHostController.navigate(Constant.SINGUP)
-            },
-            onClick = { offset ->
-                if (offset in 20..26) {
-                    navHostController.navigate(Constant.SINGUP)
-                }
-            },
-            style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
+
+        AnimatedPreloader(modifier = Modifier.size(250.dp), animation = R.raw.forgot_password)
+
+        Spacer(modifier = Modifier.size(8.dp))
+
+        Text(
+            text = "Enter your new password below",
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
         )
+
+        Spacer(modifier = Modifier.size(15.dp))
+
+        PasswordForm(navHostController)
+
+        Spacer(modifier = Modifier.size(15.dp))
 
     }
 }
 
 @Composable
-fun EmailAndPasswordForm(navHostController: NavHostController) {
-    var email by remember { mutableStateOf("") }
+fun PasswordForm(navHostController: NavHostController) {
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
@@ -100,19 +102,19 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
     ) {
         // Email TextField
         TextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Username", color = Color.White) },
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Password",color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
-                Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
+                Icon(Icons.Default.Lock, contentDescription = null,tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Password
             ),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = secondaryDark.copy(alpha = 0.8f),
+                backgroundColor =  secondaryDark.copy(alpha = 0.8f),
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 cursorColor = Color.White,
@@ -122,12 +124,12 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
         Spacer(modifier = Modifier.size(8.dp))
         // Password TextField
         TextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password", color = Color.White) },
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Confirm Password",color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
-                Icon(Icons.Default.Lock, contentDescription = null, tint = Color.White)
+                Icon(Icons.Default.Lock, contentDescription = null,tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password
@@ -135,7 +137,7 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = secondaryDark.copy(alpha = 0.8f),
+                backgroundColor =  secondaryDark.copy(alpha = 0.8f),
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 cursorColor = Color.White,
@@ -143,25 +145,14 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
             )
         )
 
-        Text(
-            text = AnnotatedString("forgot Password?"),
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .align(Alignment.End)
-                .clickable {
-                    // Handle click action, e.g., navigate to login screen
-                    navHostController.navigate(FORGOT_PASSWORD)
-                },
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
-        )
+        Spacer(modifier = Modifier.size(15.dp))
 
         // Button to simulate login action
         Button(
             onClick = {
-                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
-                context.startActivity(Intent(context, MainActivity::class.java))
+//                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN,true)
+//                context.startActivity(Intent(context, MainActivity::class.java))
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -169,7 +160,7 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
             shape = RoundedCornerShape(25.dp),
             colors = ButtonDefaults.buttonColors(Color.White)
         ) {
-            Text("Login", color = Color.Black, modifier = Modifier.padding(5.dp))
+            Text("Change It", color = Color.Black, modifier = Modifier.padding(5.dp))
         }
     }
 }
