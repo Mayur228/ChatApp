@@ -1,10 +1,14 @@
 package com.example.chatapp.common
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.chatapp.calls.CallScreen
+import com.example.chatapp.chat.ChatScreen
+import com.example.chatapp.common.Constant.CHAT
 import com.example.chatapp.common.Constant.LOGIN
 import com.example.chatapp.common.Constant.ONBOARDING
 import com.example.chatapp.common.Constant.SINGUP
@@ -20,9 +24,16 @@ import com.example.chatapp.setting.SettingScreen
 fun NavGraph(
     navController: NavHostController
 ) {
+    val isFirstTime = PreferencesManager(LocalContext.current).getPreferenceValue(SharedPreferenceKey.IS_FIRST_TIME, true)
+    val isLogin = PreferencesManager(LocalContext.current).getPreferenceValue(SharedPreferenceKey.IS_LOGIN, false)
+
     NavHost(
         navController = navController,
-        startDestination = ONBOARDING
+        startDestination = when {
+            isFirstTime -> ONBOARDING
+            isLogin -> BottomNavItem.Message.destination
+            else -> LOGIN
+        }
     ) {
         composable(route = ONBOARDING) {
             OnBoarding(navController)
@@ -33,8 +44,20 @@ fun NavGraph(
         composable(route = SINGUP) {
             RegistrationScreen(navController)
         }
-        /*composable(route = BottomNavItem.Settings.destination) {
-           SettingScreen()
-        }*/
+        composable(route = BottomNavItem.Message.destination) {
+            HomeScreen(navController)
+        }
+        composable(route = BottomNavItem.Calls.destination) {
+            CallScreen()
+        }
+        composable(route = BottomNavItem.Contacts.destination) {
+            ContactScreen()
+        }
+        composable(route = BottomNavItem.Settings.destination) {
+            SettingScreen()
+        }
+        composable(route = CHAT) {
+           ChatScreen()
+        }
     }
 }

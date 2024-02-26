@@ -2,6 +2,7 @@ package com.example.chatapp.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,12 +37,18 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.chatapp.R
+import com.example.chatapp.common.Constant
+import com.example.chatapp.home.model.ChatData
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun ChatItem() {
+fun ChatItem(onItemClick: () -> Unit) {
     Card(
-        modifier = Modifier.padding(vertical = 1.dp, horizontal = 5.dp),
+        modifier = Modifier
+            .padding(vertical = 1.dp, horizontal = 5.dp)
+            .clickable {
+                onItemClick()
+            },
         backgroundColor = secondaryDark,
         shape = RoundedCornerShape(5.dp)
     ) {
@@ -52,7 +59,6 @@ fun ChatItem() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            // Left side: Profile image, username, and mobile number
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -120,11 +126,4 @@ fun ChatItem() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun preview()
-{
- ChatItem()
 }

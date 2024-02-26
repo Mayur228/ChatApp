@@ -44,6 +44,8 @@ import com.example.chatapp.MainActivity
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
 import com.example.chatapp.common.Constant
+import com.example.chatapp.common.PreferencesManager
+import com.example.chatapp.common.SharedPreferenceKey
 import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
@@ -72,13 +74,10 @@ fun LoginPage(
         ClickableText(
             text = AnnotatedString("Not registered yet? SignUp"),
             modifier = Modifier.clickable {
-                    // Handle click action, e.g., navigate to login screen
                 navHostController.navigate(Constant.SINGUP)
                 },
             onClick = { offset ->
-                // Handle specific click actions if needed
                 if (offset in 20..26) {
-                    // "Login" clicked
                     navHostController.navigate(Constant.SINGUP)
                 }
             },
@@ -161,6 +160,7 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
         // Button to simulate login action
         Button(
             onClick = {
+                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN,true)
                 context.startActivity(Intent(context, MainActivity::class.java))
             },
             modifier = Modifier

@@ -26,8 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
+import com.example.chatapp.common.Constant.CHAT
 import com.example.chatapp.common.StandardToolbar
 import com.example.chatapp.contact.component.ContactItem
 import com.example.chatapp.home.component.ChatItem
@@ -35,7 +37,7 @@ import com.example.chatapp.ui.theme.quicksand
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navHostController: NavHostController) {
     var isLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(true) {
@@ -57,12 +59,12 @@ fun HomeScreen() {
     }
 
     if (!isLoading) {
-        Home()
+        Home(navHostController)
     }
 }
 
 @Composable
-fun Home() {
+fun Home(navHostController: NavHostController) {
     Scaffold(
         topBar = {
             StandardToolbar(
@@ -113,23 +115,33 @@ fun Home() {
             ) {
 
                 item {
-                    ChatItem()
+                    ChatItem(onItemClick = {
+                        navHostController.navigate(CHAT)
+                    })
                 }
 
                 item {
-                    ChatItem()
+                    ChatItem(onItemClick = {
+                        navHostController.navigate(CHAT)
+                    })
                 }
 
                 item {
-                    ChatItem()
+                    ChatItem(onItemClick = {
+                        navHostController.navigate(CHAT)
+                    })
                 }
 
                 item {
-                    ChatItem()
+                    ChatItem(onItemClick = {
+                        navHostController.navigate(CHAT)
+                    })
                 }
 
                 item {
-                    ChatItem()
+                    ChatItem(onItemClick = {
+                        navHostController.navigate(CHAT)
+                    })
                 }
 
             }

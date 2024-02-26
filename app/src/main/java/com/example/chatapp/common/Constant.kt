@@ -4,6 +4,7 @@ object Constant {
     const val ONBOARDING = "onBoarding"
     const val LOGIN = "Login"
     const val SINGUP = "SingUp"
+    const val CHAT = "chat"
 }
 
 object SharedPreferenceKey {

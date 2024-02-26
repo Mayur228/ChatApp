@@ -38,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -46,6 +45,8 @@ import com.example.chatapp.MainActivity
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
 import com.example.chatapp.common.Constant
+import com.example.chatapp.common.PreferencesManager
+import com.example.chatapp.common.SharedPreferenceKey
 import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
@@ -179,8 +180,7 @@ fun Form(navHostController: NavHostController) {
         Spacer(modifier = Modifier.size(15.dp))
         Button(
             onClick = {
-                // Perform login action here
-                // You can access the entered email and password using the 'email' and 'password' variables
+                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN,true)
                 context.startActivity(Intent(context, MainActivity::class.java))
             },
             modifier = Modifier
@@ -197,12 +197,10 @@ fun Form(navHostController: NavHostController) {
             modifier = Modifier
                 .padding(top = 12.dp)
                 .clickable {
-                    // Handle click action, e.g., navigate to login screen
+                    navHostController.navigate(Constant.LOGIN)
                 },
             onClick = { offset ->
-                // Handle specific click actions if needed
                 if (offset in 20..26) {
-                    // "Login" clicked
                     navHostController.navigate(Constant.LOGIN)
                 }
             },
