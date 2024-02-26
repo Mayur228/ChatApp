@@ -1,5 +1,6 @@
 package com.example.chatapp.login
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,13 +38,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavHostController
+import com.example.chatapp.MainActivity
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
+import com.example.chatapp.common.Constant
 import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun LoginPage() {
+fun LoginPage(
+    navHostController: NavHostController
+) {
 
     Column(
         modifier = Modifier.padding(8.dp),
@@ -58,18 +66,20 @@ fun LoginPage() {
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
         )
-        EmailAndPasswordForm()
+        EmailAndPasswordForm(navHostController)
         SocialMedia()
         Spacer(modifier = Modifier.size(15.dp))
         ClickableText(
             text = AnnotatedString("Not registered yet? SignUp"),
             modifier = Modifier.clickable {
                     // Handle click action, e.g., navigate to login screen
+                navHostController.navigate(Constant.SINGUP)
                 },
             onClick = { offset ->
                 // Handle specific click actions if needed
                 if (offset in 20..26) {
                     // "Login" clicked
+                    navHostController.navigate(Constant.SINGUP)
                 }
             },
             style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
@@ -79,9 +89,11 @@ fun LoginPage() {
 }
 
 @Composable
-fun EmailAndPasswordForm() {
+fun EmailAndPasswordForm(navHostController: NavHostController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -149,8 +161,7 @@ fun EmailAndPasswordForm() {
         // Button to simulate login action
         Button(
             onClick = {
-                // Perform login action here
-                // You can access the entered email and password using the 'email' and 'password' variables
+                context.startActivity(Intent(context, MainActivity::class.java))
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,10 +172,4 @@ fun EmailAndPasswordForm() {
             Text("Login", color = Color.Black, modifier = Modifier.padding(5.dp))
         }
     }
-}
-
-@Preview(showSystemUi = true, showBackground = true, backgroundColor = 1)
-@Composable
-fun LoginPagePreview() {
-    LoginPage()
 }

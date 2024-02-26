@@ -1,5 +1,6 @@
 package com.example.chatapp.registration
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -39,13 +41,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.chatapp.MainActivity
 import com.example.chatapp.R
 import com.example.chatapp.common.AnimatedPreloader
+import com.example.chatapp.common.Constant
 import com.example.chatapp.common.SocialMedia
 import com.example.chatapp.ui.theme.secondaryDark
 
 @Composable
-fun RegistrationScreen() {
+fun RegistrationScreen(
+    navHostController: NavHostController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -59,16 +66,17 @@ fun RegistrationScreen() {
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
         )
-        Form()
+        Form(navHostController)
         Spacer(modifier = Modifier.size(15.dp))
     }
 }
 
-
 @Composable
-fun Form() {
+fun Form(navHostController: NavHostController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -173,6 +181,7 @@ fun Form() {
             onClick = {
                 // Perform login action here
                 // You can access the entered email and password using the 'email' and 'password' variables
+                context.startActivity(Intent(context, MainActivity::class.java))
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -194,15 +203,10 @@ fun Form() {
                 // Handle specific click actions if needed
                 if (offset in 20..26) {
                     // "Login" clicked
+                    navHostController.navigate(Constant.LOGIN)
                 }
             },
             style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
         )
     }
-}
-
-@Preview
-@Composable
-fun RegistrationPreview() {
-    RegistrationScreen()
 }
