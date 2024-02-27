@@ -12,7 +12,20 @@
           "package_name": "com.theappmakerbuddy.chitchathub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "243453209088-6ki5g11nrp96ee0vti76jo3koks4c6nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theappmakerbuddy.chitchathub",
+            "certificate_hash": "c239e918bfb075837c026d19ab64e7a38d5e3142"
+          }
+        },
+        {
+          "client_id": "243453209088-9k6ve5gc0b69l1mnptr0lnpfgsajdeg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyChN02zHAHggr7NwVRTXxmaAxCFGNjVBDg"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243453209088-9k6ve5gc0b69l1mnptr0lnpfgsajdeg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

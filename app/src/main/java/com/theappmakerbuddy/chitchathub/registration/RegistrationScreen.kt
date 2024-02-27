@@ -23,6 +23,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -76,6 +77,7 @@ fun RegistrationScreen(
 fun Form(navHostController: NavHostController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
@@ -87,6 +89,25 @@ fun Form(navHostController: NavHostController) {
         horizontalAlignment =  Alignment.CenterHorizontally,
     ) {
         // Email TextField
+        TextField(
+            value = userName,
+            onValueChange = { userName = it },
+            label = { Text("Username", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = {
+                Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
+            },
+            shape = RoundedCornerShape(percent = 12),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = secondaryDark.copy(alpha = 0.8f),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color.White,
+                textColor = Color.White
+            )
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+
         TextField(
             value = email,
             onValueChange = { email = it },

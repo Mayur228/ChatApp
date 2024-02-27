@@ -1,7 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -61,18 +64,44 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material:material:1.6.1")
 //    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.foundation:foundation:1.6.1")
+    implementation("androidx.compose.foundation:foundation:1.6.2")
+
+    // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("com.airbnb.android:lottie-compose:4.0.0")
+
+    //Lottie Animation
+    implementation("com.airbnb.android:lottie-compose:5.2.0")
+
+    //Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    //Shared Preference
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    
-//    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-//    implementation("androidx.hilt:hilt-compiler:1.1.0")
-//    implementation("com.google.dagger:hilt-android:2.50")
-//    implementation("com.google.dagger:hilt-android-compiler:2.50")
 
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database-ktx")
+
+    //Hilt
+    implementation ("com.google.dagger:hilt-android:2.50")
+    implementation ("com.google.dagger:dagger-android-support:2.48")
+    kapt ("com.google.dagger:hilt-android-compiler:2.50")
+    kapt ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.6.2")
+    kapt ("androidx.hilt:hilt-compiler:1.1.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Coroutine Lifecycle Scopes
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -81,4 +110,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+kapt {
+    correctErrorTypes = true
 }

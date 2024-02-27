@@ -14,7 +14,9 @@ import com.theappmakerbuddy.chitchathub.common.StandardScaffold
 import com.theappmakerbuddy.chitchathub.common.model.BottomNavItem
 import com.theappmakerbuddy.chitchathub.ui.theme.ChatAppTheme
 import com.theappmakerbuddy.chitchathub.ui.theme.primaryDark
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
