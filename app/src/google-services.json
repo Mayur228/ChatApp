@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243453209088",
+    "project_id": "chitchat-hub-910ed",
+    "storage_bucket": "chitchat-hub-910ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243453209088:android:18c0a76829547fdaf8c6e5",
+        "android_client_info": {
+          "package_name": "com.theappmakerbuddy.chitchathub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChN02zHAHggr7NwVRTXxmaAxCFGNjVBDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

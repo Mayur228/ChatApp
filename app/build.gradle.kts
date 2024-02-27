@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.chatapp"
+    namespace = "com.theappmakerbuddy.chitchathub"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.chatapp"
+        applicationId = "com.theappmakerbuddy.chitchathub"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
