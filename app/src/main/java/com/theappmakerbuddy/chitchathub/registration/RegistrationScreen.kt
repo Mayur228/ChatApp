@@ -1,6 +1,7 @@
 package com.theappmakerbuddy.chitchathub.registration
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,10 +52,14 @@ import com.theappmakerbuddy.chitchathub.common.PreferencesManager
 import com.theappmakerbuddy.chitchathub.common.SharedPreferenceKey
 import com.theappmakerbuddy.chitchathub.common.SocialMedia
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.theappmakerbuddy.chitchathub.model.UserRequest
+import com.theappmakerbuddy.chitchathub.utils.Results
 
 @Composable
 fun RegistrationScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    viewModel: RegistrationViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -74,10 +80,14 @@ fun RegistrationScreen(
 }
 
 @Composable
-fun Form(navHostController: NavHostController) {
+fun Form(
+    navHostController: NavHostController,
+    viewModel: RegistrationViewModel = hiltViewModel()
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var userName by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
@@ -86,7 +96,7 @@ fun Form(navHostController: NavHostController) {
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .padding(15.dp),
-        horizontalAlignment =  Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // Email TextField
         TextField(
@@ -131,8 +141,8 @@ fun Form(navHostController: NavHostController) {
         Spacer(modifier = Modifier.size(8.dp))
 
         TextField(
-            value = email,
-            onValueChange = { email = it },
+            value = phone,
+            onValueChange = { phone = it },
             label = { Text("Phone", color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
@@ -201,8 +211,14 @@ fun Form(navHostController: NavHostController) {
         Spacer(modifier = Modifier.size(15.dp))
         Button(
             onClick = {
-                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN,true)
-                context.startActivity(Intent(context, MainActivity::class.java))
+                val user = UserRequest(
+                    username = userName,
+                    email = email,
+                    phone = phone,
+                    password = password
+                )
+                viewModel.register(userRequest = user)
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -228,4 +244,23 @@ fun Form(navHostController: NavHostController) {
             style = LocalTextStyle.current.copy(color = Color.White, fontWeight = FontWeight.Medium)
         )
     }
+
+    val userData by viewModel.userResponse.collectAsState()
+    when (userData) {
+        is Results.Loading -> {
+            // Show loading indicator
+//                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        }
+
+        is Results.Success -> {
+            PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
+            context.startActivity(Intent(context, MainActivity::class.java))
+        }
+
+        is Results.Error -> {
+            // Handle error state, you can show an error message or retry button
+            Text(text = "Failed to register data", modifier = Modifier.padding(16.dp))
+        }
+    }
+
 }

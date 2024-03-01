@@ -1,18 +1,18 @@
 package com.theappmakerbuddy.chitchathub.registration.usecase
 
 import com.theappmakerbuddy.chitchathub.registration.repository.FirebaseAuthRepository
-import com.theappmakerbuddy.chitchathub.utils.Result
+import com.theappmakerbuddy.chitchathub.utils.Results
 import javax.inject.Inject
 
 class LogInUseCase @Inject constructor(
     private val authRepository: FirebaseAuthRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Result<Nothing> {
+    suspend operator fun invoke(email: String, password: String): Results<Nothing> {
         return try {
             authRepository.login(email, password)
-            Result.Success()
+            Results.Success()
         } catch (e: Exception) {
-            Result.Error(e)
+            Results.Error(e)
         }
     }
 }
