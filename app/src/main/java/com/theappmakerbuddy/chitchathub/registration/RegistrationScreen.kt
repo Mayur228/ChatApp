@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,7 +60,6 @@ import com.theappmakerbuddy.chitchathub.utils.Results
 @Composable
 fun RegistrationScreen(
     navHostController: NavHostController,
-    viewModel: RegistrationViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -245,22 +245,26 @@ fun Form(
         )
     }
 
-    val userData by viewModel.userResponse.collectAsState()
-    when (userData) {
-        is Results.Loading -> {
-            // Show loading indicator
+    LaunchedEffect(viewModel.userResponse){
+        viewModel.userResponse.collect{userData ->
+            when (userData) {
+                is Results.Loading -> {
+                    // Show loading indicator
 //                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-        }
+                }
 
-        is Results.Success -> {
-            PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
-            context.startActivity(Intent(context, MainActivity::class.java))
-        }
+                is Results.Success -> {
+                    PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                }
 
-        is Results.Error -> {
-            // Handle error state, you can show an error message or retry button
-            Text(text = "Failed to register data", modifier = Modifier.padding(16.dp))
+                is Results.Error -> {
+                    Toast.makeText(context, userData.exception.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
+
+
 
 }
