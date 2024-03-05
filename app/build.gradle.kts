@@ -109,6 +109,14 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
 
+    //Ktor
+    implementation("io.ktor:ktor-client-core:2.3.8")
+    implementation("io.ktor:ktor-client-cio:2.3.8")
+    implementation("io.ktor:ktor-client-serialization:2.3.8")
+    implementation("io.ktor:ktor-client-websockets:2.3.8")
+    implementation("io.ktor:ktor-client-logging:2.3.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
