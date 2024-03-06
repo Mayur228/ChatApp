@@ -1,6 +1,7 @@
 package com.theappmakerbuddy.chitchathub.registration
 
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -259,6 +260,7 @@ fun Form(
                 }
 
                 is Results.Error -> {
+                    Log.e("ERROR",userData.exception.message.toString())
                     Toast.makeText(context, userData.exception.message, Toast.LENGTH_SHORT).show()
                 }
             }

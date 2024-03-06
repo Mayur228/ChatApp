@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("kotlinx-serialization")
 
 }
 
@@ -112,10 +113,13 @@ dependencies {
     //Ktor
     implementation("io.ktor:ktor-client-core:2.3.8")
     implementation("io.ktor:ktor-client-cio:2.3.8")
-    implementation("io.ktor:ktor-client-serialization:2.3.8")
+//    implementation("io.ktor:ktor-client-android:2.3.8")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     implementation("io.ktor:ktor-client-websockets:2.3.8")
     implementation("io.ktor:ktor-client-logging:2.3.8")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

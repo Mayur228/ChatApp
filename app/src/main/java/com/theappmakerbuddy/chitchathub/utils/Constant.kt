@@ -1,7 +1,7 @@
 package com.theappmakerbuddy.chitchathub.utils
 
 object Constant {
-    private const val BASE_URL = "http://0.0.0.0:8080/"
+    private const val BASE_URL = "http://192.168.1.11/"
     const val REGISTER_USER_API = "${BASE_URL}/user/register"
     const val LOGIN_WITH_EMAIL = "${BASE_URL}/user/byEmail"
     const val LOGIN_WITH_PHONE = "${BASE_URL}/user/byPhone"
