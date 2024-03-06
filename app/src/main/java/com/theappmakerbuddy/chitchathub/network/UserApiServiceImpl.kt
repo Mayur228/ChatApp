@@ -11,10 +11,12 @@ import com.theappmakerbuddy.chitchathub.utils.Constant.UPDATE_USER_PROFILE
 import com.theappmakerbuddy.chitchathub.utils.Results
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.util.InternalAPI
 import javax.inject.Inject
@@ -25,7 +27,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
         return try {
             httpClient.post {
                 url(REGISTER_USER_API)
-                contentType(ContentType.Application.Json)
+//                header(HttpHeaders.ContentType, ContentType.Application.Json)
                 body = userRequest
             }
             Results.Success("Congratulations, Welcome to ChitChat Hub Your account has been successfully created.")

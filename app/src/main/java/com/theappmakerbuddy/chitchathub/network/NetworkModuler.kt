@@ -14,7 +14,6 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.accept
 import io.ktor.client.request.header
-import io.ktor.client.request.headers
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
@@ -35,11 +34,10 @@ object NetworkModule {
 
                 install(Logging) {
                     level = LogLevel.ALL
-                    logger = object : Logger{
+                    logger = object : Logger {
                         override fun log(message: String) {
                             Log.e("TAG",message)
                         }
-
                     }
                 }
 
@@ -59,7 +57,8 @@ object NetworkModule {
                 defaultRequest {
                     contentType(ContentType.Application.Json)
                     accept(ContentType.Application.Json)
-                    header(HttpHeaders.ContentType, "application/json")
+                    header(HttpHeaders.ContentType, ContentType.Application.Json)
+
                 }
 
             }

@@ -3,6 +3,7 @@ package com.theappmakerbuddy.chitchathub.registration
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,9 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
@@ -33,13 +37,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +66,7 @@ import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.theappmakerbuddy.chitchathub.model.UserRequest
 import com.theappmakerbuddy.chitchathub.utils.Results
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegistrationScreen(
@@ -80,6 +90,7 @@ fun RegistrationScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Form(
     navHostController: NavHostController,
@@ -90,7 +101,13 @@ fun Form(
     var userName by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
 
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val coroutineScope = rememberCoroutineScope()
+
     val context = LocalContext.current
+
+    val focusManager = LocalFocusManager.current
+
 
     Column(
         modifier = Modifier
@@ -104,7 +121,21 @@ fun Form(
             value = userName,
             onValueChange = { userName = it },
             label = { Text("Username", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) {
+                        coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }),
             trailingIcon = {
                 Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
             },
@@ -123,13 +154,25 @@ fun Form(
             value = email,
             onValueChange = { email = it },
             label = { Text("Email", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) {
+                        coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                },
             trailingIcon = {
                 Icon(Icons.Default.Email, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
             ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = secondaryDark.copy(alpha = 0.8f),
@@ -145,13 +188,25 @@ fun Form(
             value = phone,
             onValueChange = { phone = it },
             label = { Text("Phone", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) {
+                        coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                },
             trailingIcon = {
                 Icon(Icons.Default.Phone, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Phone,
+                imeAction = ImeAction.Next
             ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = secondaryDark.copy(alpha = 0.8f),
@@ -167,13 +222,25 @@ fun Form(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) {
+                        coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                },
             trailingIcon = {
                 Icon(Icons.Default.Lock, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
             ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }),
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(percent = 12),
             colors = TextFieldDefaults.textFieldColors(
@@ -191,12 +258,25 @@ fun Form(
             value = password,
             onValueChange = { password = it },
             label = { Text("Confirm Password", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) {
+                        coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                },
             trailingIcon = {
                 Icon(Icons.Default.Lock, contentDescription = null, tint = Color.White)
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = null
             ),
             visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(percent = 12),
@@ -246,8 +326,8 @@ fun Form(
         )
     }
 
-    LaunchedEffect(viewModel.userResponse){
-        viewModel.userResponse.collect{userData ->
+    LaunchedEffect(viewModel.userResponse) {
+        viewModel.userResponse.collect { userData ->
             when (userData) {
                 is Results.Loading -> {
                     // Show loading indicator
@@ -255,18 +335,20 @@ fun Form(
                 }
 
                 is Results.Success -> {
-                    PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
+                    PreferencesManager(context).setPreferenceValue(
+                        SharedPreferenceKey.IS_LOGIN,
+                        true
+                    )
                     context.startActivity(Intent(context, MainActivity::class.java))
                 }
 
                 is Results.Error -> {
-                    Log.e("ERROR",userData.exception.message.toString())
+                    Log.e("ERROR", userData.exception.message.toString())
                     Toast.makeText(context, userData.exception.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
 
 
 }

@@ -118,8 +118,7 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
     implementation("io.ktor:ktor-client-websockets:2.3.8")
     implementation("io.ktor:ktor-client-logging:2.3.8")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
