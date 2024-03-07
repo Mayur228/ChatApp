@@ -3,6 +3,7 @@ package com.theappmakerbuddy.chitchathub.common
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,10 +26,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.theappmakerbuddy.chitchathub.R
+import com.theappmakerbuddy.chitchathub.registration.RegistrationViewModel
 
 
 @Composable
-fun SocialMedia() {
+fun SocialMedia(viewModel: RegistrationViewModel? = null) {
     Column {
         Row(
             modifier = Modifier
@@ -68,6 +70,9 @@ fun SocialMedia() {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(45.dp)
+                    .clickable {
+                       viewModel?.loginWithEmail()
+                    }
             )
             Box(modifier = Modifier.size(8.dp))
 //            CircularImage(R.drawable.ic_facebook)
@@ -116,5 +121,4 @@ fun CircularImage(image: Int) {
 @Preview
 @Composable
 fun SocialLoginComponentPreview() {
-    SocialMedia()
 }

@@ -33,7 +33,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -310,7 +309,7 @@ fun Form(
         ) {
             Text("Signup", color = Color.Black, modifier = Modifier.padding(5.dp))
         }
-        SocialMedia()
+        SocialMedia(viewModel)
         ClickableText(
             text = AnnotatedString("Existing account? Login"),
             modifier = Modifier

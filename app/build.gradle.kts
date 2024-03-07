@@ -85,6 +85,11 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database-ktx")
 
+    // Play services
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+
     //Hilt
     implementation ("com.google.dagger:hilt-android:2.50")
     implementation ("com.google.dagger:dagger-android-support:2.48")
