@@ -12,7 +12,7 @@ class ResetPasswordUseCase @Inject constructor(
             authRepository.resetPassword(email)
             Results.Success()
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 }

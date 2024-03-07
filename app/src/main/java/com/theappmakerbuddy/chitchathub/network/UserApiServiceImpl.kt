@@ -14,9 +14,11 @@ import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.util.InternalAPI
 import javax.inject.Inject
@@ -25,14 +27,19 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
     @OptIn(InternalAPI::class)
     override suspend fun registerUser(userRequest: UserRequest): Results<String> {
         return try {
-            httpClient.post {
-                url(REGISTER_USER_API)
-//                header(HttpHeaders.ContentType, ContentType.Application.Json)
-                body = userRequest
+
+           val response =  httpClient.post(REGISTER_USER_API){
+                setBody(userRequest)
             }
-            Results.Success("Congratulations, Welcome to ChitChat Hub Your account has been successfully created.")
+
+            if(response.status == HttpStatusCode.Created){
+                Results.Success("Congratulations, Welcome to ChitChat Hub Your account has been successfully created.")
+            }else {
+                Results.Error(response.toString())
+            }
+
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
     override suspend fun loginWithEmail(email: String): Results<String> {
@@ -43,7 +50,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("User Login Successful")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -55,7 +62,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("User Login Successful")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -68,7 +75,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("User Login Successful")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -81,7 +88,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("Password changed Successfully")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -94,7 +101,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("Profile photo Successfully Changed")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -107,7 +114,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("Profile details Successfully updated")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 
@@ -119,7 +126,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
             }
             Results.Success("Password changed Successfully")
         }catch (e: Exception){
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 }

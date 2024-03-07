@@ -12,7 +12,7 @@ class LogInUseCase @Inject constructor(
             authRepository.login(email, password)
             Results.Success()
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 }

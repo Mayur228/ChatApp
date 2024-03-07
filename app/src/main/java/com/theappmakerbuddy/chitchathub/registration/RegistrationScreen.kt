@@ -296,7 +296,8 @@ fun Form(
                     username = userName,
                     email = email,
                     phone = phone,
-                    password = password
+                    password = password,
+                    userProfilePhoto = null
                 )
                 viewModel.register(userRequest = user)
 
@@ -343,8 +344,8 @@ fun Form(
                 }
 
                 is Results.Error -> {
-                    Log.e("ERROR", userData.exception.message.toString())
-                    Toast.makeText(context, userData.exception.message, Toast.LENGTH_SHORT).show()
+                    Log.e("ERROR", userData.toString())
+                    Toast.makeText(context, userData.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }

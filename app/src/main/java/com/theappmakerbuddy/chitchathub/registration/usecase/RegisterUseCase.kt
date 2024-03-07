@@ -17,7 +17,7 @@ class RegisterUseCase @Inject constructor(
             authRepository.register(user.userName, user.email, user.phone, user.userProfile ?: userPP.toString(),user.password)
             Results.Success()
         } catch (e: Exception) {
-            Results.Error(e)
+            Results.Error(e.message.toString())
         }
     }
 }
