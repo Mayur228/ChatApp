@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.Charsets
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -31,6 +32,14 @@ object NetworkModule {
     fun provideHttpClient(): UserApiService {
         return UserApiServiceImpl(
             httpClient = HttpClient(CIO) {
+
+                Charsets {
+                    // Allow using `UTF_8`.
+                    register(Charsets.UTF_8)
+//
+//                    // Allow using `ISO_8859_1` with quality 0.1.
+//                    register(Charsets.ISO_8859_1, quality=0.1f)
+                }
 
                 install(Logging) {
                     level = LogLevel.ALL

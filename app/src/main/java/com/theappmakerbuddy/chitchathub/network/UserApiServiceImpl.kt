@@ -1,5 +1,6 @@
 package com.theappmakerbuddy.chitchathub.network
 
+import android.util.Log
 import com.theappmakerbuddy.chitchathub.model.UpdateUserDetailsRequest
 import com.theappmakerbuddy.chitchathub.model.UserRequest
 import com.theappmakerbuddy.chitchathub.utils.Constant.CHANGE_PASSWORD
@@ -21,10 +22,11 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.util.InternalAPI
+import java.net.URLDecoder
+import java.net.URLEncoder
 import javax.inject.Inject
 
 class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient): UserApiService {
-    @OptIn(InternalAPI::class)
     override suspend fun registerUser(userRequest: UserRequest): Results<String> {
         return try {
 
@@ -68,12 +70,16 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
 
     override suspend fun loginWithUsername(username: String, password: String): Results<String> {
         return try {
-            httpClient.get {
-                url(LOGIN_WITH_USERNAME)
-                parameter("username",username)
-                parameter("password",password)
+
+            Log.e("CHECK",password)
+            val response =  httpClient.get("${LOGIN_WITH_USERNAME}/${username}/${password}")
+
+            if(response.status == HttpStatusCode.OK){
+                Results.Success("User Login Successful")
+            }else {
+                Results.Error(response.toString())
             }
-            Results.Success("User Login Successful")
+
         }catch (e: Exception){
             Results.Error(e.message.toString())
         }

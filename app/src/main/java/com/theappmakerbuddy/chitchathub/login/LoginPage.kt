@@ -1,6 +1,8 @@
 package com.theappmakerbuddy.chitchathub.login
 
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +40,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.theappmakerbuddy.chitchathub.MainActivity
 import com.theappmakerbuddy.chitchathub.R
@@ -47,12 +51,12 @@ import com.theappmakerbuddy.chitchathub.common.PreferencesManager
 import com.theappmakerbuddy.chitchathub.common.SharedPreferenceKey
 import com.theappmakerbuddy.chitchathub.common.SocialMedia
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
+import com.theappmakerbuddy.chitchathub.utils.Results
 
 @Composable
 fun LoginPage(
     navHostController: NavHostController
 ) {
-
     Column(
         modifier = Modifier.padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,8 +91,11 @@ fun LoginPage(
 }
 
 @Composable
-fun EmailAndPasswordForm(navHostController: NavHostController) {
-    var email by remember { mutableStateOf("") }
+fun EmailAndPasswordForm(
+    navHostController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel()
+) {
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     val context = LocalContext.current
@@ -100,8 +107,8 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
     ) {
         // Email TextField
         TextField(
-            value = email,
-            onValueChange = { email = it },
+            value = username,
+            onValueChange = { username = it },
             label = { Text("Username", color = Color.White) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
@@ -160,8 +167,7 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
         // Button to simulate login action
         Button(
             onClick = {
-                PreferencesManager(context).setPreferenceValue(SharedPreferenceKey.IS_LOGIN, true)
-                context.startActivity(Intent(context, MainActivity::class.java))
+               viewModel.loginWithUsername(username,password)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -170,6 +176,30 @@ fun EmailAndPasswordForm(navHostController: NavHostController) {
             colors = ButtonDefaults.buttonColors(Color.White)
         ) {
             Text("Login", color = Color.Black, modifier = Modifier.padding(5.dp))
+        }
+    }
+
+    LaunchedEffect(viewModel.userResponse) {
+        viewModel.userResponse.collect { userData ->
+            when (userData) {
+                is Results.Loading -> {
+                    // Show loading indicator
+//                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                }
+
+                is Results.Success -> {
+                    PreferencesManager(context).setPreferenceValue(
+                        SharedPreferenceKey.IS_LOGIN,
+                        true
+                    )
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                }
+
+                is Results.Error -> {
+                    Log.e("ERROR", userData.toString())
+                    Toast.makeText(context, userData.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
