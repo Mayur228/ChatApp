@@ -29,9 +29,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
+import com.theappmakerbuddy.chitchathub.utils.Contact
 
 @Composable
-fun ContactItem() {
+fun ContactItem(contact: Contact) {
     Card(
         modifier = Modifier.padding(vertical = 1.dp, horizontal = 5.dp),
         backgroundColor = secondaryDark,
@@ -66,13 +67,13 @@ fun ContactItem() {
 
                 Column() {
                     Text(
-                        text = "Person",
+                        text = contact.name,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
                     Text(
-                        text = "+91 9457308465",
+                        text = contact.phoneNumber,
                         color = Color.Black,
                         fontWeight = FontWeight.Normal,
                         fontSize = 16.sp

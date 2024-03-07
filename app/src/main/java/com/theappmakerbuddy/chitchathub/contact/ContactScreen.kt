@@ -1,5 +1,6 @@
 package com.theappmakerbuddy.chitchathub.contact
 
+import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,6 +32,7 @@ import com.theappmakerbuddy.chitchathub.common.AnimatedPreloader
 import com.theappmakerbuddy.chitchathub.common.StandardToolbar
 import com.theappmakerbuddy.chitchathub.contact.component.ContactItem
 import com.theappmakerbuddy.chitchathub.ui.theme.quicksand
+import com.theappmakerbuddy.chitchathub.utils.getContactList
 import kotlinx.coroutines.delay
 
 @Composable
@@ -63,6 +66,15 @@ fun ContactScreen() {
 
 @Composable
 fun Contact() {
+    val context = LocalContext.current
+
+    val activity = ComponentActivity()
+    val contactListState = getContactList(activity)
+
+
+//    var contacts by remember { mutableStateOf(emptyList<Contact>()) }
+
+
     Scaffold(
         topBar = {
             StandardToolbar(
@@ -107,27 +119,12 @@ fun Contact() {
             modifier = Modifier
                 .padding(innerPadding),
         ) {
-
-            item {
-                ContactItem()
+            contactListState.value.forEach {
+                item {
+                    ContactItem(it)
+                }
             }
-
-            item {
-                ContactItem()
-            }
-
-            item {
-                ContactItem()
-            }
-
-            item {
-                ContactItem()
-            }
-
-            item {
-                ContactItem()
-            }
-
         }
     }
+
 }
