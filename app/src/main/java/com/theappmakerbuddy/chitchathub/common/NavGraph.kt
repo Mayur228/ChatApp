@@ -55,7 +55,7 @@ fun NavGraph(
             ContactScreen()
         }
         composable(route = BottomNavItem.Settings.destination) {
-            SettingScreen()
+            SettingScreen(navController)
         }
         composable(route = CHAT) {
            ChatScreen()

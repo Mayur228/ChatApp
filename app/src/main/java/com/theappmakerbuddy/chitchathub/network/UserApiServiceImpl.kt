@@ -26,74 +26,73 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 import javax.inject.Inject
 
-class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient): UserApiService {
+class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient) : UserApiService {
     override suspend fun registerUser(userRequest: UserRequest): Results<String> {
         return try {
 
-           val response =  httpClient.post(REGISTER_USER_API){
+            val response = httpClient.post(REGISTER_USER_API) {
                 setBody(userRequest)
             }
 
-            if(response.status == HttpStatusCode.Created){
+            if (response.status == HttpStatusCode.Created) {
                 Results.Success("Congratulations, Welcome to ChitChat Hub Your account has been successfully created.")
-            }else {
+            } else {
                 Results.Error(response.toString())
             }
 
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
+
     override suspend fun loginWithEmail(email: String): Results<String> {
         return try {
-            httpClient.get {
-                url(LOGIN_WITH_EMAIL)
-                parameter("email",email)
+            val response = httpClient.get("${LOGIN_WITH_EMAIL}/${email}")
+            if (response.status == HttpStatusCode.OK) {
+                Results.Success("User Login Successful")
+            } else {
+                Results.Error(response.toString())
             }
-            Results.Success("User Login Successful")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
 
     override suspend fun loginWithPhone(phone: String): Results<String> {
         return try {
-            httpClient.get {
-                url(LOGIN_WITH_PHONE)
-                parameter("phone",phone)
+            val response = httpClient.get("${LOGIN_WITH_PHONE}/${phone}")
+            if (response.status == HttpStatusCode.OK) {
+                Results.Success("User Login Successful")
+            } else {
+                Results.Error(response.toString())
             }
-            Results.Success("User Login Successful")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
 
     override suspend fun loginWithUsername(username: String, password: String): Results<String> {
         return try {
-
-            Log.e("CHECK",password)
-            val response =  httpClient.get("${LOGIN_WITH_USERNAME}/${username}/${password}")
-
-            if(response.status == HttpStatusCode.OK){
+            val response = httpClient.get("${LOGIN_WITH_USERNAME}/${username}/${password}")
+            if (response.status == HttpStatusCode.OK) {
                 Results.Success("User Login Successful")
-            }else {
+            } else {
                 Results.Error(response.toString())
             }
-
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
 
-    override suspend fun changePassword(password: String,username:String): Results<String> {
+    override suspend fun changePassword(password: String, username: String): Results<String> {
         return try {
             httpClient.get {
                 url(CHANGE_PASSWORD)
-                parameter("password",password)
-                parameter("username",username)
+                parameter("password", password)
+                parameter("username", username)
             }
             Results.Success("Password changed Successfully")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
@@ -106,7 +105,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
                 body = userProfile
             }
             Results.Success("Profile photo Successfully Changed")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
@@ -119,7 +118,7 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
                 body = updateUserDetailsRequest
             }
             Results.Success("Profile details Successfully updated")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }
@@ -128,10 +127,10 @@ class UserApiServiceImpl @Inject constructor(private val httpClient: HttpClient)
         return try {
             httpClient.get {
                 url(CHANGE_PASSWORD)
-                parameter("userID",userId)
+                parameter("userID", userId)
             }
             Results.Success("Password changed Successfully")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Results.Error(e.message.toString())
         }
     }

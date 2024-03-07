@@ -27,15 +27,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.common.AnimatedPreloader
+import com.theappmakerbuddy.chitchathub.common.Constant.LOGIN
+import com.theappmakerbuddy.chitchathub.common.PreferencesManager
+import com.theappmakerbuddy.chitchathub.common.SharedPreferenceKey
 import com.theappmakerbuddy.chitchathub.common.StandardToolbar
 import com.theappmakerbuddy.chitchathub.setting.component.SettingItem
 import com.theappmakerbuddy.chitchathub.ui.theme.quicksand
 import kotlinx.coroutines.delay
 
 @Composable
-fun SettingScreen() {
+fun SettingScreen(navController: NavHostController) {
     val context = LocalContext.current
 
     var isLoading by remember { mutableStateOf(true) }
@@ -59,13 +63,14 @@ fun SettingScreen() {
     }
 
     if (!isLoading) {
-        Setting()
+        Setting(navController)
     }
 
 }
 
 @Composable
-fun Setting() {
+fun Setting(navController: NavHostController) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             StandardToolbar(
@@ -94,7 +99,11 @@ fun Setting() {
                 showBackArrow = false,
                 navActions = {
                     IconButton(onClick = {
-//                        onEvent(HomeUiEvents.OnSearchClick)
+                        navController.navigate(LOGIN)
+                        PreferencesManager(context).setPreferenceValue(
+                            SharedPreferenceKey.IS_LOGIN,
+                            false
+                        )
                     }) {
                         Image(
                             modifier = Modifier.size(27.dp),
