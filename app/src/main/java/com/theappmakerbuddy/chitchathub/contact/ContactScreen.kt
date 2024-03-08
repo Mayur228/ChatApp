@@ -1,6 +1,7 @@
 package com.theappmakerbuddy.chitchathub.contact
 
-import androidx.activity.ComponentActivity
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -27,11 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.common.AnimatedPreloader
 import com.theappmakerbuddy.chitchathub.common.StandardToolbar
+import com.theappmakerbuddy.chitchathub.common.model.User
 import com.theappmakerbuddy.chitchathub.contact.component.ContactItem
 import com.theappmakerbuddy.chitchathub.ui.theme.quicksand
+import com.theappmakerbuddy.chitchathub.utils.Results
 import com.theappmakerbuddy.chitchathub.utils.getContactList
 import kotlinx.coroutines.delay
 
@@ -65,15 +69,10 @@ fun ContactScreen() {
 }
 
 @Composable
-fun Contact() {
+fun Contact(viewModel: ContactViewModel = hiltViewModel()) {
+    val contactListState = getContactList()
     val context = LocalContext.current
-
-    val activity = ComponentActivity()
-    val contactListState = getContactList(activity)
-
-
-//    var contacts by remember { mutableStateOf(emptyList<Contact>()) }
-
+    var filteredContactList by remember { mutableStateOf(emptySet<User>()) }
 
     Scaffold(
         topBar = {
@@ -97,7 +96,6 @@ fun Contact() {
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }
-
                 },
                 modifier = Modifier.fillMaxWidth(),
                 showBackArrow = false,
@@ -115,16 +113,54 @@ fun Contact() {
             )
         }
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding),
-        ) {
-            contactListState.value.forEach {
-                item {
-                    ContactItem(it)
+
+        LaunchedEffect(viewModel.userResponse) {
+            viewModel.userResponse.collect { userData ->
+                when (userData) {
+                    is Results.Loading -> {
+                        // Show loading indicator
+                        // CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                    }
+
+                    is Results.Success -> {
+                        val userList = userData.data
+
+                        // Filter the contactListState based on user phone numbers
+
+                         filteredContactList = contactListState.value.flatMap { contact ->
+                             val matchingUsers = userList?.filter { user ->
+                                 user.phone == contact.phoneNumber
+                             } ?: emptyList()
+                             matchingUsers
+                         }.toSet()
+
+                    }
+
+                    is Results.Error -> {
+                        Log.e("ERROR", userData.toString())
+                        Toast.makeText(context, userData.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
-    }
 
+        UserList(
+            modifier = Modifier,
+            contactList = filteredContactList.toList()
+        )
+    }
+}
+
+@Composable
+fun UserList(modifier: Modifier, contactList: List<User>?) {
+    LazyColumn(
+        modifier = modifier
+            .padding(2.dp),
+    ) {
+        contactList?.forEach {
+            item {
+                ContactItem(it)
+            }
+        }
+    }
 }

@@ -1,10 +1,12 @@
 package com.theappmakerbuddy.chitchathub.common.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
     val userId: String,
-    val userName: String,
+    val username: String,
     val email: String? = null,
     val phone: String? = null,
-    val password: String,
-    val userProfile: String? = null
+    val userProfilePhoto: String? = null
 )

@@ -4,31 +4,33 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.provider.ContactsContract
 import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
+import com.theappmakerbuddy.chitchathub.MainActivity
 
 data class Contact(
     val id: String,
     val name: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val photo: String?
 )
 
 @Composable
-fun getContactList(activity: ComponentActivity): State<List<Contact>> {
+fun getContactList(): State<List<Contact>> {
     val context = LocalContext.current
     val contactsState = mutableStateOf<List<Contact>>(emptyList())
 
-    val requestPermissionLauncher =
-        activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                contactsState.value = fetchContacts(context.contentResolver)
-            }
+    MainActivity().checkAndRequestPermission(
+        android.Manifest.permission.READ_CONTACTS,
+        onPermissionGranted = {
+            contactsState.value = fetchContacts(context.contentResolver)
+        },
+        onPermissionDenied = {
+            // Handle the case when any permission is denied
         }
-
-    requestPermissionLauncher.launch(android.Manifest.permission.READ_CONTACTS)
+    )
 
     return contactsState
 }
@@ -50,8 +52,9 @@ private fun fetchContacts(contentResolver: ContentResolver): List<Contact> {
             val id = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
             val name = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             val phoneNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            val photoUri = it.getString(it.getColumnIndex(ContactsContract.Contacts.PHOTO_URI))
 
-            contacts.add(Contact(id, name, phoneNumber))
+            contacts.add(Contact(id, name, phoneNumber,photoUri))
         }
     }
 

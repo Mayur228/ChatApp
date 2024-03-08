@@ -28,11 +28,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.theappmakerbuddy.chitchathub.R
+import com.theappmakerbuddy.chitchathub.common.model.User
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
-import com.theappmakerbuddy.chitchathub.utils.Contact
 
 @Composable
-fun ContactItem(contact: Contact) {
+fun ContactItem(contact: User) {
     Card(
         modifier = Modifier.padding(vertical = 1.dp, horizontal = 5.dp),
         backgroundColor = secondaryDark,
@@ -51,29 +51,28 @@ fun ContactItem(contact: Contact) {
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg")
+                        .data(contact.userProfilePhoto)
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.ic_placeholder),
                     error = painterResource(id = R.drawable.ic_placeholder),
                     contentDescription = "Person",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .size(60.dp)
                         .clip(CircleShape)
                 )
-
                 Spacer(modifier = Modifier.padding(end = 12.dp))
 
                 Column() {
                     Text(
-                        text = contact.name,
+                        text = contact.username,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
                     Text(
-                        text = contact.phoneNumber,
+                        text = contact.phone ?: "",
                         color = Color.Black,
                         fontWeight = FontWeight.Normal,
                         fontSize = 16.sp

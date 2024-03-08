@@ -1,6 +1,7 @@
 package com.theappmakerbuddy.chitchathub.registration.repository
 
 import android.util.Log
+import com.theappmakerbuddy.chitchathub.common.model.User
 import com.theappmakerbuddy.chitchathub.model.UpdateUserDetailsRequest
 import com.theappmakerbuddy.chitchathub.model.UserRequest
 import com.theappmakerbuddy.chitchathub.network.UserApiService
@@ -23,6 +24,10 @@ class UserRepository @Inject constructor(
 
     suspend fun loginUserWithUsername(username:String,password: String): Results<String> {
         return userService.loginWithUsername(username, password)
+    }
+
+    suspend fun getAllUser(): Results<List<User>> {
+        return userService.getAllUser()
     }
 
     suspend fun updateUserProfile(userProfile: String): Results<String> {

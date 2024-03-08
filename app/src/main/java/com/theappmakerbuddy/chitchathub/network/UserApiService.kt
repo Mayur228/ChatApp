@@ -1,5 +1,6 @@
 package com.theappmakerbuddy.chitchathub.network
 
+import com.theappmakerbuddy.chitchathub.common.model.User
 import com.theappmakerbuddy.chitchathub.model.UpdateUserDetailsRequest
 import com.theappmakerbuddy.chitchathub.model.UserRequest
 import com.theappmakerbuddy.chitchathub.utils.Results
@@ -20,6 +21,8 @@ interface UserApiService {
     suspend fun updateUserProfile(@Body userProfile: String): Results<String>
 
     suspend fun updateUserDetails(@Body updateUserDetailsRequest: UpdateUserDetailsRequest): Results<String>
+
+    suspend fun getAllUser(): Results<List<User>>
 
     suspend fun deleteUser(userId: String): Results<String>
 
