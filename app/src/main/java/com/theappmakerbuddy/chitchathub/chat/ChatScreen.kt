@@ -27,14 +27,19 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.chat.component.ReceiverMessage
 import com.theappmakerbuddy.chitchathub.chat.component.SenderMessage
+import com.theappmakerbuddy.chitchathub.contact.ContactViewModel
 import com.theappmakerbuddy.chitchathub.ui.theme.primaryDark
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
 
 @Composable
-fun ChatScreen() {
+fun ChatScreen(
+    sessionId: String?,
+    viewModel: ContactViewModel = hiltViewModel()
+) {
 
     val messages = listOf(
         Message(

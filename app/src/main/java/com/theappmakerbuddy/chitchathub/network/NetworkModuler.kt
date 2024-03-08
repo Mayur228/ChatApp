@@ -13,6 +13,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.accept
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
@@ -29,48 +30,40 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): UserApiService {
-        return UserApiServiceImpl(
-            httpClient = HttpClient(CIO) {
-
-                Charsets {
-                    // Allow using `UTF_8`.
-                    register(Charsets.UTF_8)
-//
-//                    // Allow using `ISO_8859_1` with quality 0.1.
-//                    register(Charsets.ISO_8859_1, quality=0.1f)
+    fun provideHttpClient(): HttpClient {
+        return HttpClient(CIO) {
+            install(Logging)
+            install(WebSockets)
+            install(ContentNegotiation) {
+                json(
+                    json = Json {
+                        prettyPrint = true
+                        isLenient = true
+                    },
+                    contentType = ContentType.Application.Json
+                )
+                headers {
+                    ContentType.Application.Json
                 }
-
-                install(Logging) {
-                    level = LogLevel.ALL
-                    logger = object : Logger {
-                        override fun log(message: String) {
-                            Log.e("TAG",message)
-                        }
-                    }
-                }
-
-                install(ContentNegotiation) {
-                    json(
-                        json = Json {
-                            prettyPrint = true
-                            isLenient = true
-                        },
-                        contentType = ContentType.Application.Json
-                    )
-                    headers {
-                        ContentType.Application.Json
-                    }
-                }
-
-                defaultRequest {
-                    contentType(ContentType.Application.Json)
-                    accept(ContentType.Application.Json)
-                    header(HttpHeaders.ContentType, ContentType.Application.Json)
-
-                }
+            }
+            defaultRequest {
+                contentType(ContentType.Application.Json)
+                accept(ContentType.Application.Json)
+                header(HttpHeaders.ContentType, ContentType.Application.Json)
 
             }
-        )
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserService(client: HttpClient): UserApiService {
+        return UserApiServiceImpl(client)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatSocketService(client: HttpClient): ChatSocketService {
+        return ChatSocketServiceImpl(client)
     }
 }

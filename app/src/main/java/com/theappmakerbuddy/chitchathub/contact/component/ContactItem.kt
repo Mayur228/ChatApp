@@ -1,5 +1,6 @@
 package com.theappmakerbuddy.chitchathub.contact.component
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
 
 @Composable
 fun ContactItem(contact: User) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier.padding(vertical = 1.dp, horizontal = 5.dp),
         backgroundColor = secondaryDark,
@@ -84,6 +86,8 @@ fun ContactItem(contact: User) {
             IconButton(
                 onClick = {
                     // Handle icon button click
+                    Toast.makeText(context, contact.userId, Toast.LENGTH_SHORT).show()
+
                 },
                 modifier = Modifier
                     .size(25.dp)
