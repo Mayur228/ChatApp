@@ -58,7 +58,7 @@ fun NavGraph(
             SettingScreen(navController)
         }
         composable(route = CHAT) {
-           ChatScreen()
+           ChatScreen("")
         }
         composable(route = FORGOT_PASSWORD) {
             ForgotPasswordPage(navController)
