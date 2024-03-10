@@ -31,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.chat.component.ReceiverMessage
 import com.theappmakerbuddy.chitchathub.chat.component.SenderMessage
+import com.theappmakerbuddy.chitchathub.common.model.Message
 import com.theappmakerbuddy.chitchathub.contact.ContactViewModel
 import com.theappmakerbuddy.chitchathub.ui.theme.primaryDark
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
@@ -41,31 +42,7 @@ fun ChatScreen(
     viewModel: ContactViewModel = hiltViewModel()
 ) {
 
-    val messages = listOf(
-        Message(
-            "Person",
-            "Hello, how are you?",
-            "10:30 AM",
-            true,
-            "https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg"
-        ),
-        Message("Person", "I'm doing well, thanks!", "10:35 AM", false),
-        Message(
-            "Person",
-            "What are your plans for today?",
-            "10:40 AM",
-            true,
-            "https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg"
-        ),
-        Message("Person", "I have some work and then a meeting later.", "10:45 AM", false),
-        Message(
-            "Person",
-            "Sounds busy! Take care.",
-            "10:50 AM",
-            true,
-            "https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg"
-        ),
-    )
+    val messages = emptyList<Message>()
 
     Box(
         modifier = Modifier
@@ -80,7 +57,7 @@ fun ChatScreen(
             items(messages.size) { index ->
                 val message = messages[index]
 
-                if (message.isSender) {
+                if (message.messageList.size == 0) {
                     // Sender Message
                     SenderMessage(message)
 
@@ -141,11 +118,3 @@ fun ChatScreen(
         }
     }
 }
-
-data class Message(
-    val senderName: String,
-    val messageContent: String,
-    val time: String,
-    val isSender: Boolean,
-    val profileImageResId: String? = null
-)
