@@ -1,7 +1,6 @@
 package com.theappmakerbuddy.chitchathub.network
 
 import com.theappmakerbuddy.chitchathub.common.model.Message
-import com.theappmakerbuddy.chitchathub.common.model.MessageData
 import com.theappmakerbuddy.chitchathub.utils.Results
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +14,7 @@ interface ChatSocketService {
 
     suspend fun sendMessage(message: String)
 
-    fun observeMessages(): Flow<MessageData>
+    fun observeMessages(): Flow<Message>
 
     suspend fun closeSession()
 

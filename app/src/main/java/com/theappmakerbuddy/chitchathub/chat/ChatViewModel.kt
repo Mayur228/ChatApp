@@ -41,7 +41,7 @@ class ChatViewModel@Inject constructor(
                         chatSocketService.observeMessages()
                             .onEach { message ->
                                 val newList = state.value.messages.toMutableList().apply {
-                                    add(0, message)
+                                    add(0, message.messageList.first())
                                 }
                                 _state.value = state.value.copy(
                                     messages = newList

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -64,7 +65,7 @@ fun SocialMedia(viewModel: RegistrationViewModel? = null) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 //            CircularImage(R.drawable.ic_google)
-            Image(
+            /*Image(
                 painter = painterResource(R.drawable.ic_google),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
@@ -74,15 +75,15 @@ fun SocialMedia(viewModel: RegistrationViewModel? = null) {
                        viewModel?.loginWithEmail()
                     }
             )
-            Box(modifier = Modifier.size(8.dp))
-//            CircularImage(R.drawable.ic_facebook)
-            Image(
+            Box(modifier = Modifier.size(8.dp))*/
+            CircularImage(R.drawable.ic_phone_auth)
+           /* Image(
                 painter = painterResource(R.drawable.ic_facebook),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(45.dp)
-            )
+            )*/
         }
 
     }
@@ -94,10 +95,9 @@ fun CircularImage(image: Int) {
     Card(
         modifier = Modifier
             .size(50.dp)
-            .border(1.dp, Color.Black, CircleShape)
-            ,
+            .border(1.dp, Color.Black, CircleShape),
         backgroundColor = Color.White,
-        shape = CircleShape,
+        shape = RoundedCornerShape(12.dp),
         elevation = 16.dp
     ) {
         Box(
@@ -121,4 +121,5 @@ fun CircularImage(image: Int) {
 @Preview
 @Composable
 fun SocialLoginComponentPreview() {
+    SocialMedia()
 }

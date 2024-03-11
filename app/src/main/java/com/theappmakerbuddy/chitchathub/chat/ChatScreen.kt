@@ -32,6 +32,7 @@ import com.theappmakerbuddy.chitchathub.R
 import com.theappmakerbuddy.chitchathub.chat.component.ReceiverMessage
 import com.theappmakerbuddy.chitchathub.chat.component.SenderMessage
 import com.theappmakerbuddy.chitchathub.common.model.Message
+import com.theappmakerbuddy.chitchathub.common.model.MessageData
 import com.theappmakerbuddy.chitchathub.contact.ContactViewModel
 import com.theappmakerbuddy.chitchathub.ui.theme.primaryDark
 import com.theappmakerbuddy.chitchathub.ui.theme.secondaryDark
@@ -42,7 +43,7 @@ fun ChatScreen(
     viewModel: ContactViewModel = hiltViewModel()
 ) {
 
-    val messages = emptyList<Message>()
+    val messages = emptyList<MessageData>()
 
     Box(
         modifier = Modifier
@@ -57,7 +58,7 @@ fun ChatScreen(
             items(messages.size) { index ->
                 val message = messages[index]
 
-                if (message.messageList.size == 0) {
+                if (message.senderId == "Current_userId") {
                     // Sender Message
                     SenderMessage(message)
 

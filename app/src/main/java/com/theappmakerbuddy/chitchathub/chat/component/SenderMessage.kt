@@ -11,11 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.theappmakerbuddy.chitchathub.chat.Message
+import com.theappmakerbuddy.chitchathub.common.model.MessageData
 import com.theappmakerbuddy.chitchathub.ui.theme.primaryPurple
 
 @Composable
-fun SenderMessage(message: Message) {
+fun SenderMessage(message: MessageData) {
 
     Column(
         modifier = Modifier
@@ -27,13 +27,13 @@ fun SenderMessage(message: Message) {
             .padding(8.dp),
     ) {
         Text(
-            text = message.messageContent,
+            text = "1",
             color = Color.White,
             textAlign = TextAlign.Start,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
-        Text(text = message.time, color = Color.Gray)
+        Text(text = message.time.toString(), color = Color.Gray)
     }
 
 

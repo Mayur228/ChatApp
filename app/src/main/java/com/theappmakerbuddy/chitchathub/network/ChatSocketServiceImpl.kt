@@ -24,9 +24,9 @@ class ChatSocketServiceImpl @Inject constructor(private val httpClient: HttpClie
     private var socket: WebSocketSession? = null
 
     override suspend fun initSession(
-        userId: String,
-        username: String,
-        userPP: String,
+//        userId: String,
+//        username: String,
+//        userPP: String,
         sessionId: String
     ): Results<Unit> {
         return try {
