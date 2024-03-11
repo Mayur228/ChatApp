@@ -17,12 +17,13 @@ data class Contact(
     val photo: String?
 )
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun getContactList(): State<List<Contact>> {
     val context = LocalContext.current
     val contactsState = mutableStateOf<List<Contact>>(emptyList())
 
-    MainActivity().checkAndRequestPermission(
+    MainActivity().CheckAndRequestPermission(
         android.Manifest.permission.READ_CONTACTS,
         onPermissionGranted = {
             contactsState.value = fetchContacts(context.contentResolver)

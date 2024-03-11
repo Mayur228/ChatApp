@@ -9,7 +9,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ComponentActivity.checkAndRequestPermission(
+fun ComponentActivity.CheckAndRequestPermission(
     vararg permissions: String,
     onPermissionGranted: () -> Unit,
     onPermissionDenied: () -> Unit
