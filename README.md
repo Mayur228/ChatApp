@@ -1,7 +1,5 @@
 # ChitChat Hub
 
-🚧 Work in progress 🚧
-
 🚀 Just launched ChitChat Hub, my latest creation in the world of chat applications! 📱✨
 
 Powered by the latest tech stack – Jetpack Compose, Firebase, Lottie Animation, Retrofit, Coil, and Coroutines – ChitChat Hub is not just a messaging app; it's a visual and functional delight!
